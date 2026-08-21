@@ -1,7 +1,7 @@
 
 tabla = int(input("Ingrese el número de la tabla: "))
 
-while tabla< 0:
+while tabla<=0:
     print("Elige un numero positivo o mayor a cero")
     tabla = int(input("Ingrese el número de la tabla: "))
 
