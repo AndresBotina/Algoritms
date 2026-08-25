@@ -1,4 +1,4 @@
-# 🧠 Algoritms
+# Algoritms
 
 > Repositorio personal para **practicar, estudiar y resolver algoritmos**.
 > La meta no es coleccionar soluciones: es afilar la lógica de programación.
