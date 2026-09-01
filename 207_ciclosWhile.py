@@ -1,6 +1,6 @@
 """Control de producción de una fábrica
 Realizar una aplicacion que permita registrar la cantidad
-de unicades producidas durante 7 dias.
+de unidades producidas durante 7 dias.
 El programa debe solicitar por teclado la cantidad producida en cada dia y al finalizar debe mostrar:
 -La produccion total de la semana
 -El promedio diario de produccion
