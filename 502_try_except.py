@@ -30,3 +30,14 @@ else:
                     break
 
     print("Calificaciones registradas:", calificaciones)
+
+    if len(calificaciones) > 0:
+        promedio = sum(calificaciones) / len(calificaciones)
+        print(f"El promedio es: {promedio}")
+
+        if promedio >= 3.0:
+            print("El estudiante aprueba")
+        else:
+            print("El estudiante reprueba")
+    else:
+        print("No se registraron calificaciones")
