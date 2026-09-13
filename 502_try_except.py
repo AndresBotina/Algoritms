@@ -8,3 +8,25 @@ Restriciones:
 - Usar try-except para envitar errores en la entrada de datos
 - Calcular el promedio y mostrar si aprueba o reprueba
 - Las calificaciones deben ser almacenadas en una lista"""
+
+try:
+    cantidad = int(input("¿Cuántas calificaciones va a registrar?: "))
+except ValueError:
+    print("Error: debe ingresar un número entero.")
+else:
+    calificaciones = []
+
+    for i in range(cantidad):
+        while True:
+            try:
+                nota = float(input(f"Ingrese la calificación {i + 1}: "))
+            except ValueError:
+                print("Error: debe ingresar un valor numérico.")
+            else:
+                if nota < 0.0 or nota > 5.0:
+                    print("Error: la calificación debe estar entre 0.0 y 5.0")
+                else:
+                    calificaciones.append(nota)
+                    break
+
+    print("Calificaciones registradas:", calificaciones)
