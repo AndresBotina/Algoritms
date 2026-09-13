@@ -8,6 +8,3 @@ Restriciones:
 - Usar try-except para envitar errores en la entrada de datos
 - Calcular el promedio y mostrar si aprueba o reprueba
 - Las calificaciones deben ser almacenadas en una lista"""
-
-while True:
-    
