@@ -33,72 +33,84 @@ se encuentra un dato inválido, se debe informar el error y solicitar nuevamente
 correspondientes.
 '''
 
-total_agua_consumida = 0
-agua_mtrs_cubicos = 0
-nro_apartacho = 0
-estrato = 0
-descuento = 0
-con_descuento = 0
-nro_apartamentos = int(input("¿Cuantos apartamentos serán procesados? "))
-for i in range(1,nro_apartamentos +1):
-    nro_apartacho = int(input("Ingrese el numero del apartamento: "))
-    print("")
+nro_apartamentos = int(input("¿Cuántos apartamentos serán procesados? "))
+
+consumos = []
+nro_apartamento_menor = 0
+menor_consumo = None
+hay_exceso = False
+
+for i in range(1, nro_apartamentos + 1):
+    nro_apartamento = int(input("Ingrese el número del apartamento: "))
+
     print("""
         Hasta 10 m3 $2.000
         De 11 a 20 m3 $2.500
         Más de 20 m3 $3.200
         """)
-    agua_mtrs_cubicos = float(input("Agua en metros cubicos consuimdos durante el mes: "))
 
-   
+    agua = float(input("Agua en metros cúbicos consumidos durante el mes: "))
+    while agua < 0:
+        print("Error: el consumo no puede ser negativo.")
+        agua = float(input("Agua en metros cúbicos consumidos durante el mes: "))
 
-    print("""
-        • Los estratos 1 y 2 reciben un descuento del 15%.
-        • El estrato 3 recibe un descuento del 5%.
-        • Los estratos 4, 5 y 6 no reciben descuento.
-        """)
-    estrato = int(input("Ingresa tu estrato: "))
-    print("")
+    estrato = int(input("Ingrese el estrato (1 a 6): "))
+    while estrato < 1 or estrato > 6:
+        print("Error: el estrato debe estar entre 1 y 6.")
+        estrato = int(input("Ingrese el estrato (1 a 6): "))
+
+    if agua <= 10:
+        valor_consumo = agua * 2000
+    elif agua <= 20:
+        valor_consumo = agua * 2500
+    else:
+        valor_consumo = agua * 3200
+
+    cargo_fijo = 18000
+    valor_antes_descuento = valor_consumo + cargo_fijo
 
     match estrato:
-        case 1|2:
-            print("Estrato 1")
-            descuento = agua_mtrs_cubicos*0.15
-            if agua_mtrs_cubicos >= 1 and agua_mtrs_cubicos <=10:
-                total_agua_consumida = agua_mtrs_cubicos * 2000
-            
-            elif agua_mtrs_cubicos <= 20:
-                total_agua_consumida = agua_mtrs_cubicos*2500
-            elif total_agua_consumida >= 21:
-                total_agua_consumida =agua_mtrs_cubicos*3200
+        case 1 | 2:
+            descuento = valor_antes_descuento * 0.15
         case 3:
-            print("Este estrato recibe descuento del 5%")
-            descuento = agua_mtrs_cubicos*0.05
-            if agua_mtrs_cubicos >= 1 and agua_mtrs_cubicos <=10:
-                total_agua_consumida = agua_mtrs_cubicos * 2000
-            
-            elif agua_mtrs_cubicos <= 20:
-                total_agua_consumida = agua_mtrs_cubicos*2500
-            elif total_agua_consumida >= 21:
-                total_agua_consumida =agua_mtrs_cubicos*3200
-        case 4|5|6:
-            print("Estos estratos NO reciben descuento")
-            if agua_mtrs_cubicos >= 1 and agua_mtrs_cubicos <=10:
-                total_agua_consumida = agua_mtrs_cubicos * 2000
-            
-            elif agua_mtrs_cubicos <= 20:
-                total_agua_consumida = agua_mtrs_cubicos*2500
-            elif total_agua_consumida >= 21:
-                total_agua_consumida =agua_mtrs_cubicos*3200
+            descuento = valor_antes_descuento * 0.05
         case _:
-            print("Ingresaste un numero o dato invalido")
-    con_descuento = total_agua_consumida - descuento
-    print("")
-    print(f"---------- DATOS DEL APARTAMENTO N° [{nro_apartacho}] -----------")
-    print("")
-    print(f"Total del agua consumida de [{nro_apartacho}] es {total_agua_consumida}")
-    print(f"El total del agua consumida con descuento es de: [{con_descuento}]")
+            descuento = 0
 
+    total_pagar = valor_antes_descuento - descuento
 
+    print(f"\n---------- DATOS DEL APARTAMENTO N° [{nro_apartamento}] ----------")
+    print(f"Consumo: {agua} m3")
+    print(f"Valor antes del descuento: {valor_antes_descuento}")
+    print(f"Descuento: {descuento}")
+    print(f"Total a pagar: {total_pagar}")
 
+    consumos.append(agua)
 
+    if menor_consumo is None or agua < menor_consumo:
+        menor_consumo = agua
+        nro_apartamento_menor = nro_apartamento
+
+    if agua > 40:
+        hay_exceso = True
+
+promedio = sum(consumos) / len(consumos)
+print(f"\nPromedio de consumo: {promedio} m3")
+
+if promedio < 10:
+    print("Consumo general: Consumo bajo")
+elif promedio <= 20:
+    print("Consumo general: Consumo moderado")
+else:
+    print("Consumo general: Consumo alto")
+
+superior = 0
+for c in consumos:
+    if c > promedio:
+        superior += 1
+print(f"Apartamentos con consumo superior al promedio: {superior}")
+
+if hay_exceso:
+    print("ALERTA: existe consumo excesivo (más de 40 m3).")
+
+print(f"El apartamento con menor consumo es el N° {nro_apartamento_menor} con {menor_consumo} m3.")
