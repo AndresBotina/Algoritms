@@ -9,6 +9,7 @@ productoMayor1 = 0
 productoMayor2 = 0
 productoMayor3 = 0
 for i in range(1, cantidadVentas+1):
+    descuento = 0
     numeroVenta = str(input("Ingrese el numero o codigo de la venta: "))
     
     print("""
@@ -113,5 +114,5 @@ print("")
 if  objetivo > 500000:
     print(f"El objetivo de 500.000 en ventas diarias se cumplio. Total: {objetivo}")
 else:
-    dineroFaltante =objetivo - 500000
+    dineroFaltante = 500000 - objetivo
     print(f"No se logro el objetivo de 500.000 en ventas, falto {dineroFaltante}")
